@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Base62Id.Install do
+defmodule Mix.Tasks.Base62id.Install do
   @shortdoc "generates create_base62id_generator migration file for your database"
 
   use Mix.Task
