@@ -4,7 +4,7 @@ defmodule Base62Id.Mixfile do
   def project do
     [
       app: :base62id,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.6",
       description: description(),
       build_embedded: Mix.env() == :prod,
