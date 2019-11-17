@@ -27,7 +27,7 @@ defmodule Ecto.Base62Id do
   def dump(_other), do: :error
   
   @impl Ecto.Type
-  def equal?(a, b) when (is_binary(a) and is_binary(b)) or (is_integer(a) and is_integer(b)),
+  def equal?(a, b),
     do: a == b
 
   @impl Ecto.Type
