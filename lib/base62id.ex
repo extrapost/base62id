@@ -25,6 +25,13 @@ defmodule Ecto.Base62Id do
   def dump(base62) when is_binary(base62), do: {:ok, :base62.decode(base62)}
   def dump(int) when is_integer(int), do: {:ok, int}
   def dump(_other), do: :error
+  
+  @impl Ecto.Type
+  def equal?(a, b) when (is_binary(a) and is_binary(b)) or (is_integer(a) and is_integer(b)),
+    do: a == b
+
+  @impl Ecto.Type
+  def embed_as(_format), do: :self
 
   # TODO: write correct generator
   # This function is called, if autogenerate: true is set on primary key
