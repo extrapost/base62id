@@ -5,7 +5,7 @@
 -compile([native]).
 
 -export([char_to_digit/1, decode/1, digit_to_char/1,
-	 encode/1]).
+	 encode/1, is_valid/1]).
 
 %% @spec encode(integer()) -> string()
 %% @doc encode an integer into base 62 using 0-9, A-Z, and a-z
@@ -34,3 +34,12 @@ encode(I, Acc) ->
 decode([C | T], N, Acc) ->
     decode(T, N * 62, char_to_digit(C) * N + Acc);
 decode([], _N, Acc) -> Acc.
+
+is_valid(S) ->
+    is_valid(unicode:characters_to_list(S), true).
+
+is_valid([], Verdict) -> Verdict;
+is_valid([C | T], true)
+    when (C >= $0) and (C < 75 + $0) ->
+    is_valid(T, true);
+is_valid(_S, _V) -> false.
