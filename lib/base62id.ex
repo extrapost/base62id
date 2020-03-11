@@ -26,10 +26,34 @@ defmodule Ecto.Base62Id do
   def dump(int) when is_integer(int), do: {:ok, int}
   def dump(_other), do: :error
   
+  @doc """
+
+  ## Examples
+
+      iex> equal?(1, 1)
+      true
+
+      iex> equal?(1, 2)
+      false
+
+      iex> equal?(1, nil)
+      false
+
+      iex> equal?(100, "1c)
+      true
+
+      iex> equal("1c", "1c")
+      true
+
+  """
+
   @impl Ecto.Type
-  def equal?(a, b) when (is_integer(a) and is_integer(b)) or (is_binary(a) and is_binary(b)), do: a == b
+  def equal?(a, b) when (is_integer(a) and is_integer(b)) or (is_binary(a) and is_binary(b)),
+    do: a == b
+
   def equal?(a, b) when is_binary(a), do: equal?(:base62.decode(a), b)
   def equal?(a, b) when is_binary(b), do: equal?(a, :base62.decode(b))
+  def equal?(_, _), do: false
 
   @impl Ecto.Type
   def embed_as(_format), do: :self
