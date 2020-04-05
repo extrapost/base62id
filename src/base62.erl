@@ -31,6 +31,9 @@ encode(I, Acc) ->
     I1 = I div 62,
     encode(I1, [digit_to_char(I rem 62) | Acc]).
 
+%% Skip non-valid characters, like spaces
+decode([C | T], N, Acc) when (C < $0) or (C >= $0 + 74)  ->
+    decode(T, N, Acc);
 decode([C | T], N, Acc) ->
     decode(T, N * 62, char_to_digit(C) * N + Acc);
 decode([], _N, Acc) -> Acc.
